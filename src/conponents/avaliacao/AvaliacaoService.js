@@ -6,10 +6,7 @@ const buscaTodas = (success, error) =>
     .then(success)
     .catch(error);
 
-const buscaPorId = (avaliacaoId, success, error) =>
-  axios
-    .get(`http://localhost:8081/filmes-api/v1/avaliacoes/${avaliacaoId}`)
-    .then(success)
-    .catch(error);
+const buscaPorFilmeId = (filmeId) =>
+  axios.get(`http://localhost:8081/filmes-api/v1/avaliacoes/${filmeId}`);
 
-export { buscaTodas, buscaPorId }
+export { buscaTodas, buscaPorFilmeId }

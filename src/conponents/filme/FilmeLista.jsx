@@ -1,6 +1,8 @@
 import React from 'react';
 
 import FilmeCard from './FilmeCard';
+import AvaliacaoLista from '../avaliacao/AvaliacaoLista';
+//import AvaliacaoList from '../avaliacao/AvaliacaoList';
 import { useBuscaFilmes, useBuscaFilmesPorId }  from './FilmeService';
 
 class FilmeLista extends React.Component {
@@ -36,7 +38,8 @@ class FilmeLista extends React.Component {
           this.state.filmes.map(f => {
             return (
               <FilmeCard key={f.id} filme={f}>
-                <span>Teste</span>
+                {/* <span>Comentários</span> */}
+                <AvaliacaoLista />
               </FilmeCard>
             );
           }) 
