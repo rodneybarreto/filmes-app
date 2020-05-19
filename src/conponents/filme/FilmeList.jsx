@@ -1,9 +1,8 @@
 import React from 'react';
 
 import FilmeCard from './FilmeCard';
-import AvaliacaoLista from '../avaliacao/AvaliacaoLista';
-//import AvaliacaoList from '../avaliacao/AvaliacaoList';
-import { useBuscaFilmes, useBuscaFilmesPorId }  from './FilmeService';
+import AvaliacaoList from '../avaliacao/AvaliacaoList';
+import { useBuscaTodosOsFilmes }  from './FilmeService';
 
 class FilmeLista extends React.Component {
 
@@ -16,11 +15,11 @@ class FilmeLista extends React.Component {
   }
 
   componentDidMount() {
-    this.buscaFilmes();
+    this.buscaTodosOsFilmes();
   }
 
-  buscaFilmes() {
-    useBuscaFilmes()
+  buscaTodosOsFilmes() {
+    useBuscaTodosOsFilmes()
       .then(response => {
         if (response.status === 204) {
           this.setState({ filmes: [] });
@@ -38,8 +37,7 @@ class FilmeLista extends React.Component {
           this.state.filmes.map(f => {
             return (
               <FilmeCard key={f.id} filme={f}>
-                {/* <span>Comentários</span> */}
-                <AvaliacaoLista />
+                <AvaliacaoList avaliacoes={f.avaliacoes} />
               </FilmeCard>
             );
           }) 

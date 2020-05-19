@@ -1,18 +1,8 @@
 import React from 'react';
 
-import { buscaPorFilmeId } from './AvaliacaoService';
-
 class AvaliacaoList extends React.Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = { 
-      avaliacoes: []
-    };
-  }
-
-  setItem(avaliacao) {
+  setRow(avaliacao) {
     return (
       <tr>
         <td>{avaliacao.id}</td>
@@ -23,9 +13,9 @@ class AvaliacaoList extends React.Component {
     );
   }
 
-  setFooter() {
-    const total = this.state.avaliacoes.map(a => +a.nota).reduce((acc, curr) => acc + curr, 0); 
-    const media = (total / this.state.avaliacoes.length) || 0;
+  setFooter(avaliacoes) {
+    const total = avaliacoes.map(a => +a.nota).reduce((acc, curr) => acc + curr, 0); 
+    const media = (total / avaliacoes.length) || 0;
    
     return (
       <tr>
@@ -35,7 +25,7 @@ class AvaliacaoList extends React.Component {
     );
   }
 
-  setTable() {
+  setTable(avaliacoes) {
     return (
       <table border="1">
         <thead>
@@ -47,35 +37,21 @@ class AvaliacaoList extends React.Component {
           </tr>
         </thead>
         <tbody>
-          { this.state.avaliacoes.map(a => this.setItem(a)) }
+          { avaliacoes.map(a => this.setRow(a)) }
         </tbody>
         <tfoot>
-          { this.setFooter() }
+          { this.setFooter(avaliacoes) }
         </tfoot>
       </table>
     );
   }
 
-  componentDidMount() {
-    this.buscaAvaliacoesPorFilmeId();
-  }
-
-  buscaAvaliacoesPorFilmeId() {
-    buscaPorFilmeId(this.props.filmeId)
-      .then(response => {
-        if (response.status === 204) {
-          this.setState({ avaliacoes: [] });
-        } else {
-          this.setState({ avaliacoes: response.data });
-        }
-      })
-      .catch(error => console.log);
-  }
-
   render() {
-    return(
+    const { avaliacoes } = this.props;
+
+    return (
       <div>
-       { this.setTable() }
+       { this.setTable(avaliacoes) }
       </div>
     );
   }

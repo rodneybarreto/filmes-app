@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const useBuscaFilmes = () => 
+const useBuscaTodosOsFilmes = () => 
   axios.get('http://localhost:8081/filmes-api/v1/filmes'); 
 
-const useBuscaFilmesPorId = (filmeId) =>
+const useBuscaFilmePorId = (filmeId) =>
   axios.get(`http://localhost:8081/filmes-api/v1/filmes/${filmeId}`); 
 
-export { useBuscaFilmes, useBuscaFilmesPorId }
+export { useBuscaTodosOsFilmes, useBuscaFilmePorId }

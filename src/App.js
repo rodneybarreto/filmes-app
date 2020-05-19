@@ -1,13 +1,13 @@
 import React from 'react';
 
 import './App.css';
-import FilmeLista from './conponents/filme/FilmeLista';
+import FilmeList from './conponents/filme/FilmeList';
 
 class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <FilmeLista />
+        <FilmeList />
       </div>
     );
   }
