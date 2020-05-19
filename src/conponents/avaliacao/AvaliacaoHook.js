@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import buscaTodas from './AvaliacaoService';
+import { buscaTodas } from './AvaliacaoService';
 
 export default () => {
 

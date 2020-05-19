@@ -2,7 +2,7 @@ import React from 'react';
 
 import buscaAvaliacoes from './AvaliacaoHook';
 
-const LoadingMessage = () => <p>Carregando lista...</p>
+const LoadingMessage = () => <p>Carregando...</p>
 
 const Error = props => <h3>{props.message}</h3>
 
