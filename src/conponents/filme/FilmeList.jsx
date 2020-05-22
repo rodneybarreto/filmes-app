@@ -1,51 +1,88 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-import FilmeCard from './FilmeCard';
-import AvaliacaoList from '../avaliacao/AvaliacaoList';
-import { useBuscaTodosOsFilmes }  from './FilmeService';
+import FilmeService from '../../services/filme.service';
+import { Link } from 'react-router-dom';
 
-class FilmeLista extends React.Component {
+export default class FilmeList extends Component {
 
   constructor(props) {
     super(props);
 
     this.state = {
-      filmes: []
+      filmes: [],
+      currentFilme: null,
+      currentIndex: -1
     };
   }
 
   componentDidMount() {
-    this.buscaTodosOsFilmes();
+    this.getAll();
   }
 
-  buscaTodosOsFilmes() {
-    useBuscaTodosOsFilmes()
-      .then(response => {
-        if (response.status === 204) {
-          this.setState({ filmes: [] });
-        } else {
-          this.setState({ filmes: response.data });
-        }
-      })
-      .catch(errr => console.log);
+  getAll() {
+    FilmeService.getAll()
+      .then(res => this.setState({
+        filmes: res.data
+      }))
+      .catch(err => console.log);
+  }
+
+  setCurrentFilme(filme, index) {
+    this.setState({
+      currentFilme: filme,
+      currentIndex: index
+    });
   }
 
   render() {
+    const { filmes, currentFilme, currentIndex } = this.state;
+
     return (
-      <div>
-        { 
-          this.state.filmes.map(f => {
-            return (
-              <FilmeCard key={f.id} filme={f}>
-                <AvaliacaoList avaliacoes={f.avaliacoes} />
-              </FilmeCard>
-            );
-          }) 
-        }
+      <div className="list row">
+        <div className="col-md-6">
+          <h4>Filmes</h4>
+          <ul className="list-group">
+            {
+              filmes && filmes.map((filme, index) => (
+                <li 
+                  className={"list-group-item "+ (index === currentIndex ? "active": "")}
+                  onClick={() => this.setCurrentFilme(filme, index)}
+                  key={index}
+                >
+                  {filme.titulo}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div className="col-md-6">
+          {
+            currentFilme ? (
+              <div>
+                <h4>{currentFilme.titulo}</h4>
+                <div>
+                  <label>{currentFilme.sinopse}</label>
+                </div>
+                <div>
+                  <label>{currentFilme.anoLancamento}</label>
+                </div>
+                <div>
+                  <label>{currentFilme.produtores}</label>
+                </div>
+                <div>
+                  <label>{currentFilme.protagonistas}</label>
+                </div>
+                <Link to={'/filmes'+ currentFilme.id} className="badge badge-warning">Editar</Link>
+              </div>
+            ) : (
+              <div>
+                <br />
+                <p>Click no filme para ver os detalhes...</p>
+              </div>
+            )
+          }
+        </div>
       </div>
     );
-  }  
-
+  }
 }
-
-export default FilmeLista;

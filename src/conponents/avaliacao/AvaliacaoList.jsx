@@ -27,7 +27,7 @@ class AvaliacaoList extends React.Component {
 
   setTable(avaliacoes) {
     return (
-      <table border="1">
+      <table border="1" width="100%">
         <thead>
           <tr>
             <th>ID</th>
