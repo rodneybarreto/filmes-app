@@ -2,9 +2,9 @@ import React from 'react';
 
 class AvaliacaoList extends React.Component {
 
-  setRow(avaliacao) {
+  setRow(avaliacao, index) {
     return (
-      <tr>
+      <tr key={index}>
         <td>{avaliacao.pessoaNome}</td>
         <td>{avaliacao.comentario}</td>
         <td>{avaliacao.nota}</td>
@@ -35,7 +35,7 @@ class AvaliacaoList extends React.Component {
           </tr>
         </thead>
         <tbody>
-          { avaliacoes.map(a => this.setRow(a)) }
+          { avaliacoes.map((avaliacao, index) => this.setRow(avaliacao, index)) }
         </tbody>
         <tfoot>
           { this.setFooter(avaliacoes) }
