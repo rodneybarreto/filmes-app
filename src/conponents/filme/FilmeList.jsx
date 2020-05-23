@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import FilmeService from '../../services/filme.service';
-import { Link } from 'react-router-dom';
 
 export default class FilmeList extends Component {
 
@@ -72,7 +72,7 @@ export default class FilmeList extends Component {
                 <div>
                   <label>{currentFilme.protagonistas}</label>
                 </div>
-                <Link to={'/filmes'+ currentFilme.id} className="badge badge-warning">Editar</Link>
+                <Link to={'/filmes/'+ currentFilme.id} className="badge badge-warning">Editar</Link>
               </div>
             ) : (
               <div>

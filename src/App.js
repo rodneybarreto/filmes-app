@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 import FilmeAdd from './conponents/filme/FilmeAdd';
-//import Filme from './conponents/filme/Filme';
+import FilmeEdt from './conponents/filme/FilmeEdt';
 import FilmeList from './conponents/filme/FilmeList';
 
 export default class App extends Component {
@@ -28,7 +28,7 @@ export default class App extends Component {
             <Switch>
               <Route exact path={["/", "/filmes"]} component={FilmeList} />
               <Route exact path="/add" component={FilmeAdd} />
-              {/* <Route path="/filmes/:id" component={Filme} /> */}
+              <Route path="/filmes/:id" component={FilmeEdt} />
             </Switch>
           </div>          
         </div>
