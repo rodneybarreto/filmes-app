@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+import AvaliacaoList from '../avaliacao/AvaliacaoList';
 import FilmeService from '../../services/filme.service';
 
 export default class FilmeList extends Component {
@@ -73,6 +74,9 @@ export default class FilmeList extends Component {
                   <label>{currentFilme.protagonistas}</label>
                 </div>
                 <Link to={'/filmes/'+ currentFilme.id} className="badge badge-warning">Editar</Link>
+                <div>
+                  <AvaliacaoList avaliacoes={currentFilme.avaliacoes} />
+                </div>
               </div>
             ) : (
               <div>

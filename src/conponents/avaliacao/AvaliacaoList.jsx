@@ -5,7 +5,6 @@ class AvaliacaoList extends React.Component {
   setRow(avaliacao) {
     return (
       <tr>
-        <td>{avaliacao.id}</td>
         <td>{avaliacao.pessoaNome}</td>
         <td>{avaliacao.comentario}</td>
         <td>{avaliacao.nota}</td>
@@ -19,7 +18,7 @@ class AvaliacaoList extends React.Component {
    
     return (
       <tr>
-        <td colSpan="3">Média</td>
+        <td colSpan="2">Média</td>
         <td>{media}</td>
       </tr>
     );
@@ -27,10 +26,9 @@ class AvaliacaoList extends React.Component {
 
   setTable(avaliacoes) {
     return (
-      <table border="1" width="100%">
-        <thead>
+      <table className="table table-striped table-sm">
+        <thead className="thead-dark">
           <tr>
-            <th>ID</th>
             <th>Nome</th>
             <th>Comentário</th>
             <th>Nota</th>
@@ -51,6 +49,7 @@ class AvaliacaoList extends React.Component {
 
     return (
       <div>
+        <br />
        { this.setTable(avaliacoes) }
       </div>
     );
