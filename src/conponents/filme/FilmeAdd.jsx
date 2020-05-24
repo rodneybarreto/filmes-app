@@ -65,7 +65,7 @@ export default class FilmeAdd extends Component {
       anoLancamento: this.state.anoLancamento,
       produtores: this.state.produtores,
       protagonistas: this.state.protagonistas
-    }
+    };
 
     FilmeService.create(data)
       .then(res => this.setState({

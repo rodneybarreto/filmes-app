@@ -89,9 +89,10 @@ export default class FilmeEdit extends Component {
 
   getFilme(id) {
     FilmeService.get(id)
-      .then(res => this.setState({
-          currentFilme: res.data
-      }))
+      .then(res => { 
+        this.setState({ currentFilme: res.data });
+        console.log(this.state.currentFilme);
+      })
       .catch(err => console.log);
   }
 

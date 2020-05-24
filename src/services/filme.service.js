@@ -15,6 +15,7 @@ class FilmeService {
   }
 
   update(id, data) {
+    console.log('update: ', data);
     return api.put(`/v1/filmes/${id}`, data);
   }
 
