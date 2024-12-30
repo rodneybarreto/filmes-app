@@ -1,9 +1,8 @@
 'use client'
-import Filme from "@/domain/Filme"
-import Link from "next/link"
-import axios from "axios"
 import { FormEvent, useEffect, useState } from "react"
 import { useParams } from "next/navigation"
+import FILMES_API from "@/config/AxiosConfig"
+import Link from "next/link"
 
 export default function FilmeForm() {
   const params = useParams<{id: string}>()
@@ -14,7 +13,7 @@ export default function FilmeForm() {
 
   useEffect(() => {
     if (params.id !== 'id') {
-      axios.get(`http://localhost:8081/filmes-api/v1/filmes/${params.id}`)
+      FILMES_API.get(`/filmes/${params.id}`)
         .then(res => {
           setTitulo(res.data.titulo)
           setSinopse(res.data.sinopse)
@@ -27,11 +26,11 @@ export default function FilmeForm() {
   function salvar(event: FormEvent) {
     event.preventDefault()
     if (params.id !== 'id') {
-      axios.put(`http://localhost:8081/filmes-api/v1/filmes/${params.id}`, {id: +params.id, titulo, sinopse, ano_lancamento: anoLancamento}, {headers})
+      FILMES_API.put(`/filmes/${params.id}`, {id: +params.id, titulo, sinopse, ano_lancamento: anoLancamento}, {headers})
         .then(res => console.log(res.data))
         .catch(error => console.log(error))
     } else {
-      axios.post('http://localhost:8081/filmes-api/v1/filmes', {titulo, sinopse, ano_lancamento: anoLancamento}, {headers})
+      FILMES_API.post('/filmes', {titulo, sinopse, ano_lancamento: anoLancamento}, {headers})
         .then(res => console.log(res.data))
         .catch(error => console.log(error))
     }
@@ -46,11 +45,13 @@ export default function FilmeForm() {
         <label htmlFor="sinopse">Sinopse</label>
         <input type="text" name="sinopse" value={sinopse} onChange={(e) => setSinopse(e.target.value)} className="text-gray-900" />
         <label htmlFor="anoLancamento">Ano de Lançamento</label>
-        <input type="text" name="anoLancamento" value={anoLancamento} onChange={(e) => setAnoLancamento(+e.target.value)} className="text-gray-900" />
-        <button type="submit">Salvar</button>
-        <Link href={'/filmes'}>
-          voltar
-        </Link>
+        <input type="number" name="anoLancamento" value={anoLancamento} onChange={(e) => setAnoLancamento(+e.target.value)} className="text-gray-900" />
+        <div className="mt-1">
+          <button type="submit" className="p-2 me-1 text-gray-900 bg-cyan-500">Salvar</button>
+          <Link href={'/filmes'}>
+            <button className="p-2 text-gray-900 bg-cyan-500">voltar</button> 
+          </Link>
+        </div>
       </form>
     </div>
   )
