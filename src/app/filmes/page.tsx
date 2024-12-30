@@ -8,15 +8,20 @@ export default function FilmesList() {
   const router = useRouter()
   const [filmes, setFilmes] = useState<Filme[]>([])
 
-  useEffect(() => {
+  useEffect(() => findAll(), [])
+
+  function findAll() {
     FILMES_API.get('/filmes')
-      .then(res => setFilmes(res.data.content))
-      .catch(error => console.log(error))
-  }, [])
+    .then(res => setFilmes(res.data.content))
+    .catch(error => console.log(error))
+  }
 
   function excluir(id: number) {
     FILMES_API.delete(`/filmes/${id}`)
-      .then(res => console.log(res.data))
+      .then(res => {
+        console.log(res.data)
+        findAll()
+      })
       .catch(error => console.log(error))
   }
 

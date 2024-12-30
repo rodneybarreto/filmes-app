@@ -1,10 +1,11 @@
 'use client'
 import { FormEvent, useEffect, useState } from "react"
-import { useParams } from "next/navigation"
+import { useParams, useRouter } from "next/navigation"
 import FILMES_API from "@/config/AxiosConfig"
 import Link from "next/link"
 
 export default function FilmeForm() {
+  const router = useRouter()
   const params = useParams<{id: string}>()
   const [titulo, setTitulo] = useState('')
   const [sinopse, setSinopse] = useState('')
@@ -27,11 +28,17 @@ export default function FilmeForm() {
     event.preventDefault()
     if (params.id !== 'id') {
       FILMES_API.put(`/filmes/${params.id}`, {id: +params.id, titulo, sinopse, ano_lancamento: anoLancamento}, {headers})
-        .then(res => console.log(res.data))
+        .then(res => {
+          console.log(res.data)
+          router.push('/filmes')
+        })
         .catch(error => console.log(error))
     } else {
       FILMES_API.post('/filmes', {titulo, sinopse, ano_lancamento: anoLancamento}, {headers})
-        .then(res => console.log(res.data))
+        .then(res => {
+          console.log(res.data)
+          router.push('/filmes')
+        })
         .catch(error => console.log(error))
     }
   }
